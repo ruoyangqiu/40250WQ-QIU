@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Mine.Services
 {
-    public class DatabaseService
+    public class DatabaseService : IDataStore<ItemModel>
     {
 
         // ...
@@ -38,14 +38,15 @@ namespace Mine.Services
             }
         }
 
-        public Task<List<ItemModel>> IndexAsync()
+        public Task<List<ItemModel>> IndexAsync(bool forceRefresh = false)
         {
             return Database.Table<ItemModel>().ToListAsync();
         }
 
-        public Task<int> CreateAsync(ItemModel item)
+        public Task<bool> CreateAsync(ItemModel item)
         {
-            return Database.InsertAsync(item);
+            Database.InsertAsync(item);
+            return Task.FromResult(true);
         }
 
         public Task<ItemModel> ReadAsync(string id)
@@ -66,16 +67,16 @@ namespace Mine.Services
             return Task.FromResult((result == 1));
         }
 
-        public Task<bool> DeleteAsync(ItemModel item)
+        public Task<bool> DeleteAsync(string id)
         {
-            var data = ReadAsync(item.Id).GetAwaiter().GetResult();
+            var data = ReadAsync(id).GetAwaiter().GetResult();
 
             if (data == null)
             {
                 return Task.FromResult(false);
             }
 
-            var result = Database.DeleteAsync(item).GetAwaiter().GetResult();
+            var result = Database.DeleteAsync(data).GetAwaiter().GetResult();
             return Task.FromResult((result == 1));
         }
 
