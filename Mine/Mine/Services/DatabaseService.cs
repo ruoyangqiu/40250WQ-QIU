@@ -57,8 +57,8 @@ namespace Mine.Services
                 return Task.FromResult(false);
             }
 
-            Database.UpdateAsync(item);
-            return Task.FromResult(true);
+            var result = Database.UpdateAsync(item).GetAwaiter().GetResult();
+            return Task.FromResult((result == 1));
         }
 
         public Task<bool> DeleteAsync(ItemModel item)
