@@ -39,7 +39,7 @@ namespace Mine.Views
 
             if(answer)
             {
-                MessagingCenter.Send(this, "WipeDataLise", true);
+                MessagingCenter.Send(this, "WipeDataList", true);
             }
         }
     }
