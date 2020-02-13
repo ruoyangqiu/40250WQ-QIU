@@ -80,5 +80,11 @@ namespace Mine.Services
             return Task.FromResult((result == 1));
         }
 
+        public void WipeDataList()
+        {
+            Database.DropTableAsync<ItemModel>().GetAwaiter().GetResult();
+            Database.CreateTablesAsync(CreateFlags.None, typeof(ItemModel)).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+
     }
 }
