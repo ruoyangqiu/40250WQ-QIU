@@ -69,7 +69,12 @@ namespace Mine.ViewModels
             Dataset = new ObservableCollection<ItemModel>();
             LoadDatasetCommand = new Command(async () => await ExecuteLoadDataCommand());
 
-            
+            // Register the set data source message
+            MessagingCenter.Subscribe<AboutPage, int>(this, "SetDataSource", (obj, data) => 
+            { 
+                SetDataSource(data); 
+            });
+
 
             // Register the Create Message
             MessagingCenter.Subscribe<ItemCreatePage, ItemModel>(this, "Create", async (obj, data) =>
