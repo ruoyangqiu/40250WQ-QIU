@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SQLite;
+using System;
+using System.Collections.Generic;
 
 namespace Mine.Models
 {
@@ -11,6 +13,11 @@ namespace Mine.Models
 
             // The Value of the item
         public int Value { get; set; } = 0;
+
+        [Ignore] 
+        public List<History> AuditHistory { get; set; } = new List<History>();
+        // Holds the AuditHistory Json
+        string AuditHistoryString { get; set; } = string.Empty;
 
         public bool Update(ItemModel data)
         {
