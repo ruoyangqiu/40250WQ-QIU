@@ -141,6 +141,8 @@ namespace Mine.ViewModels
                 DataStore = DataSource_Mock;
                 CurrentDataSource = 0;
             }
+
+            SetNeedsRefresh(true);
             return true;
         }
 
