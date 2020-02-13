@@ -15,10 +15,13 @@ namespace Mine.Models
             // The Value of the item
         public int Value { get; set; } = 0;
 
+
         [Ignore] 
         public List<History> AuditHistory { get; set; } = new List<History>();
         // Holds the AuditHistory Json
         string AuditHistoryString { get; set; } = string.Empty;
+
+        public ItemModel() { }
 
         public ItemModel(ItemModel data)
         {
