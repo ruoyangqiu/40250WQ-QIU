@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 
 namespace Mine.Models
 {
@@ -7,6 +8,7 @@ namespace Mine.Models
     /// </summary>
     public class BaseModel
     {
+        [PrimaryKey]
         // ID
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
