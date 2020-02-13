@@ -77,6 +77,11 @@ namespace Mine.ViewModels
                 SetDataSource(data); 
             });
 
+            // Register the WipeDataList Message
+            MessagingCenter.Subscribe<AboutPage, bool>(this, "WipeDataList", (obj, data) => 
+            {
+                WipeDataList(); 
+            });
 
             // Register the Create Message
             MessagingCenter.Subscribe<ItemCreatePage, ItemModel>(this, "Create", async (obj, data) =>
