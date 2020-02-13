@@ -37,14 +37,35 @@ namespace Mine.Models
 
         public bool Update(ItemModel data)
         {
-            // Update Base
-            Name = data.Name;
-            Description = data.Description;
+            var latest = JsonConvert.SerializeObject(data); 
+            var previous = JsonConvert.SerializeObject(this); 
 
-            // Update the extended
-            Value = data.Value;
+            AuditHistory = data.AuditHistory;
+            
+            if (AuditHistory == null) 
+            { 
+                AuditHistory = new List<History>();
+            }
 
-            return true;
+            AuditHistory.Add(new History 
+            { 
+                Note = "Upated", 
+                ChangedLatest = latest,
+                ChangedPrevious = previous, 
+                ChangeSize = latest.Length - previous.Length 
+            }); 
+
+            AuditHistoryString = JsonConvert.SerializeObject(AuditHistory);    
+            
+            // Do not update the ID, if you do, the record will be orphaned                
+            
+            // Update the Base            
+            Name = data.Name;            
+            Description = data.Description;            
+            // Update the extended            
+            Value = data.Value;           
+            return true;        
+
         }
     }
 
