@@ -22,6 +22,12 @@ namespace Mine.Services
             LoadDefaultData();
         }
 
+        public void WipeDataList()
+        {
+            datalist.Clear();
+            LoadDefaultData();
+        }
+
         /// <summary>
         /// Load the Default data
         /// </summary>
