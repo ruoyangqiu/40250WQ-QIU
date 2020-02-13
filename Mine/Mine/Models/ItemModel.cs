@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Newtonsoft.Json;
+using SQLite;
 using System;
 using System.Collections.Generic;
 
@@ -18,6 +19,21 @@ namespace Mine.Models
         public List<History> AuditHistory { get; set; } = new List<History>();
         // Holds the AuditHistory Json
         string AuditHistoryString { get; set; } = string.Empty;
+
+        public ItemModel(ItemModel data)
+        {
+            AuditHistoryString = data.AuditHistoryString;
+            AuditHistory = JsonConvert.DeserializeObject<List<History>>(AuditHistoryString);
+
+            // Update the Base            
+            Id = data.Id;            
+            Name = data.Name;            
+            Description = data.Description; 
+            
+            // Update the extended           
+            Value = data.Value;        
+
+        }
 
         public bool Update(ItemModel data)
         {
