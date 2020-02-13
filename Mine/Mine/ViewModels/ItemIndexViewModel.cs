@@ -43,7 +43,12 @@ namespace Mine.ViewModels
         /// <summary>
         /// Connection to the Data store
         /// </summary>
-        public IDataStore<ItemModel> DataStore => DependencyService.Get<IDataStore<ItemModel>>();
+        //public IDataStore<ItemModel> DataStore => DependencyService.Get<IDataStore<ItemModel>>();
+
+        public IDataStore<ItemModel> DataSource_SQL => new DatabaseService();
+        public IDataStore<ItemModel> DataSource_Mock => new MockDataStore();
+
+        public IDataStore<ItemModel> DataStore
 
         // Command to force a Load of data
         public Command LoadDatasetCommand { get; set; }
@@ -55,12 +60,16 @@ namespace Mine.ViewModels
         /// 
         /// The constructor subscribes message listeners for crudi operations
         /// </summary>
-        public ItemIndexViewModel()
+        private ItemIndexViewModel()
         {
+            SetDataSource(0);
+
             Title = "Items";
 
             Dataset = new ObservableCollection<ItemModel>();
             LoadDatasetCommand = new Command(async () => await ExecuteLoadDataCommand());
+
+            
 
             // Register the Create Message
             MessagingCenter.Subscribe<ItemCreatePage, ItemModel>(this, "Create", async (obj, data) =>
@@ -111,6 +120,19 @@ namespace Mine.ViewModels
             var result = await DataStore.DeleteAsync(data.Id);
 
             return result;
+        }
+
+        public bool SetDataSource(int isSQL)
+        {
+            if(isSQL == 1)
+            {
+                DataStore = DataSource_SQL;
+            }
+            else 
+            {
+                DataStore = DataSource_Mock;
+            }
+            return true;
         }
 
         /// <summary>
