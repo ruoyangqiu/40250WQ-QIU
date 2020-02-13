@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Xamarin.Forms;
 
 namespace Mine.Views
@@ -19,6 +20,16 @@ namespace Mine.Views
             InitializeComponent();
 
             CurrentDateTime.Text = System.DateTime.Now.ToString("MM/dd/yy hh:mm:ss");
+        }
+
+        async void WipeDataList_Clicked(object sender, EventArgs e)
+        {
+            bool answer = await DisplayAlert("Delete Data", "Are you sure you want to delete all data?", "Yes", "No");
+
+            if(answer)
+            {
+                MessagingCenter.Send(this, "WipeDataLise", true);
+            }
         }
     }
 }

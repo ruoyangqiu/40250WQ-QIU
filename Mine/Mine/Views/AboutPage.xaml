@@ -38,8 +38,22 @@
                 <Label Text="CPSC 4025 WQ20"></Label>
                 <Label Text="Ruoyang Qiu"></Label>
                 <Label x:Name="CurrentDateTime"></Label>
+                <StackLayout 
+                    Orientation="Horizontal"
+                    VerticalOptions="Center"
+                    Padding="50,0,0,0">
+                    <Label HorizontalOptions="Start"
+                        VerticalOptions="Center" 
+                        Text="Wipe Data List"/>
+                    <Button HorizontalOptions="Start"
+                            VerticalOptions="Center" 
+                            Text="Wipe"          
+                            Clicked="WipeDataList_Clicked"/>
+                </StackLayout>
             </StackLayout>
+            
         </ScrollView>
+        
     </Grid>
     
 </ContentPage>
