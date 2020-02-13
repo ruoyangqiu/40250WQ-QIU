@@ -22,6 +22,17 @@ namespace Mine.Views
             CurrentDateTime.Text = System.DateTime.Now.ToString("MM/dd/yy hh:mm:ss");
         }
 
+        async void DataSource_Toggled(object sender, EventArgs e) 
+        { 
+            if (DataSourceValue.IsToggled == true) 
+            {
+                MessagingCenter.Send(this, "SetDataSource", 1);
+            } 
+            else 
+            {
+                MessagingCenter.Send(this, "SetDataSource", 0);
+            } 
+        }
         async void WipeDataList_Clicked(object sender, EventArgs e)
         {
             bool answer = await DisplayAlert("Delete Data", "Are you sure you want to delete all data?", "Yes", "No");
